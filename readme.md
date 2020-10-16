@@ -1,5 +1,5 @@
-# RAJAONGKIR API UNTUK LARAVEL 7  PNP BOSS
-> API RAJAONGKIR PLUGIN.
+# GOOGLE CAPTCHA V3 LARAVEL 7  PNP BOSS
+> GOOGLE CAPTCHA V3 LARAVEL 7
 silahkan lapor jika ada bug atau masukan
 
 
@@ -8,45 +8,45 @@ silahkan lapor jika ada bug atau masukan
 Install dengan Composer
 
 ```sh
-composer require dickyp/rajaongkir
+composer require dickyp/captcha
 ```
 
 ### Tambahkan
 
 #### Provider:
 ```sh
-Dickyp\RajaOngkir\ROngkirPackageServiceProvider::class,
+Dickyp\Captcha\CaptchaPackageServiceProvider::class,
 ```
 
 #### aliases:
 ```sh
-'RajaOngkir' => Dickyp\RajaOngkir\RajaOngkirFacade::class
+'Captcha' => Dickyp\Captcha\CaptchaFacade::class,
 ```
-#### API TOKEN & Tipe akun
+#### API TOKEN
 
 
 setelah itu lakukan.
 ```sh
 php artisan vendor:publish
 
-dalam folder laravel-project/config/config/rajaongkir.php
+dalam folder laravel-project/config/config/captcha.php
 
 pindahkan rajaongkir.php ke folder laravel-project/config/ 
 ```
 
-atau membuat manual file config dengan nama rajaongkir.php
+atau membuat manual file config dengan nama captcha.php
 
 ```sh
 return [
-    'end_point' => env('RONGKIR_ENDPOINT', 'http://rajaongkir.com/api/starter'),
-    'token' => env('RONGKIR_KEY', 'token')
+	'secret' => env('CAPTCHA_SECRET', 'token'),
+    'site' 	 => env('CAPTCHA_SITEKEY', 'token')
 ];
 ```
 
 dalam file .env tambahkan 
 ```sh
-RONGKIR_ENDPOINT=http://rajaongkir.com/api/starter
-RONGKIR_KEY=API-TOKEN-ANDA
+CAPTCHA_SECRET=token
+CAPTCHA_SITEKEY=token
 ```
 
 
@@ -56,113 +56,35 @@ RONGKIR_KEY=API-TOKEN-ANDA
 untuk menggunakan tambahkan.
 
 ```sh
-use RajaOngkir;
+use Captcha;
 ```
 
-### PROVINSI
-#### Untuk mengambil data provinsi tanpa Id
-```sh
-RajaOngkir::province();
+pada halaman html yang akan di gunakan captcha tambahkan
 
-callback
-  0 => array:2 [▼
-    "province_id" => "1"
-    "province" => "Bali"
-  ]
-  1 => array:2 [▼
-    "province_id" => "2"
-    "province" => "Bangka Belitung"
-  ]
-```
-
-#### Untuk mengambil data provinsi dengan Id
-```sh
-$id = 1;
-RajaOngkir::province($id);
-
-callback
-  0 => array:2 [▼
-    "province_id" => "1"
-    "province" => "Bali"
-  ]
-```
-
-### KOTA
-#### Untuk mengambil data kota tanpa Id
-```sh
-RajaOngkir::city()
-
-callback
-  0 => array:6 [▼
-    "city_id" => "1"
-    "province_id" => "21"
-    "province" => "Nanggroe Aceh Darussalam (NAD)"
-    "type" => "Kabupaten"
-    "city_name" => "Aceh Barat"
-    "postal_code" => "23681"
-  ]
-```
-#### Untuk mengambil data kota dengan Id
+tambahkan pada form 
 
 ```sh
-$id = 1;
-RajaOngkir::city($id)
-
-callback
-  0 => array:6 [▼
-    "city_id" => "1"
-    "province_id" => "21"
-    "province" => "Nanggroe Aceh Darussalam (NAD)"
-    "type" => "Kabupaten"
-    "city_name" => "Aceh Barat"
-    "postal_code" => "23681"
-  ]
+<form id="id_form">
+    @csrf
+    <input type="hidden" name="recaptcha" id="recaptcha">
+</form>
 ```
 
-#### Untuk mengambil data kota berdasarkan provinsi
+
+tambahkan sebelum </body>
 
 ```sh
-$province_id = 1;
-RajaOngkir::city_by_province($province_id)
-
-callback
- 0 => array:6 [▼
-    "city_id" => "17"
-    "province_id" => "1"
-    "province" => "Bali"
-    "type" => "Kabupaten"
-    "city_name" => "Badung"
-    "postal_code" => "80351"
-  ]
+    <script src="https://www.google.com/recaptcha/api.js?render={{ $sitekey }}"></script>
+    <script>
+        grecaptcha.ready(function() {
+             grecaptcha.execute('{{ $sitekey }}', {action: 'id_form'}).then(function(token) {
+                if (token) {
+                  document.getElementById('recaptcha').value = token;
+                }
+             });
+        });
+    </script>
 ```
-
-#### Untuk menghitung biaya pengiriman
-
-```sh
-$origin      = $id_city_origin; // id kota pengirim
-$destination = $id_city_destination; //id kota penerima
-$weight      = 10000;   //dalam satuan gram
-$courier     = "jne" bisa di isi kurir lain tergantung tipe akun.
-RajaOngkir::shipping($origin, $destination, $weight, $courier);
-
-callback 
-
-  "code" => "jne"
-  "name" => "Jalur Nugraha Ekakurir (JNE)"
-  "costs" => array:2 [▼
-    0 => array:3 [▼
-      "service" => "OKE"
-      "description" => "Ongkos Kirim Ekonomis"
-      "cost" => array:1 [▶]
-    ]
-    1 => array:3 [▼
-      "service" => "REG"
-      "description" => "Layanan Reguler"
-      "cost" => array:1 [▶]
-    ]
-  ]
-```
-
 
 
 
