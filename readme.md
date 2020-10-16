@@ -44,6 +44,7 @@ return [
 ```
 
 dalam file .env tambahkan 
+
 ```sh
 CAPTCHA_SECRET=token
 CAPTCHA_SITEKEY=token
