@@ -15,12 +15,12 @@ composer require dickyp/rajaongkir
 
 #### Provider:
 ```sh
-Dickyp\RajaOngkir\ROngkirPackageServiceProvider::class,
+Dickyp\Captcha\CaptchaPackageServiceProvider::class,
 ```
 
 #### aliases:
 ```sh
-'RajaOngkir' => Dickyp\RajaOngkir\RajaOngkirFacade::class
+'Captcha' => Dickyp\Captcha\CaptchaFacade::class,
 ```
 #### API TOKEN & Tipe akun
 
@@ -149,7 +149,6 @@ callback
 
 * V 1.0 
     * Upload fitur dasar, ambil data kota, provinsi, ongkos kirim.
-
 
 
 
