@@ -38,8 +38,8 @@ atau membuat manual file config dengan nama captcha.php
 
 ```sh
 return [
-	'secret' => env('CAPTCHA_SECRET', 'token'),
-    'site' 	 => env('CAPTCHA_SITEKEY', 'token')
+'secret' => env('CAPTCHA_SECRET', 'token'),
+'site' 	 => env('CAPTCHA_SITEKEY', 'token')
 ];
 ```
 
@@ -60,6 +60,14 @@ use Captcha;
 ```
 
 pada halaman html yang akan di gunakan captcha tambahkan
+
+untuk sitekey bisa di selipkan pada controller contohnya
+
+```sh
+$data =  array('sitekey' => env('CAPTCHA_SITEKEY'));
+return view('welcome')->with($data);
+```
+
 
 tambahkan pada form 
 
@@ -86,12 +94,22 @@ tambahkan sebelum </body>
     </script>
 ```
 
+untuk melakukan validasi captcha tambahkan
+
+```sh
+$captcha = Captcha::captcha_check(request('recaptcha'));
+if ($captcha->score >= 0.3 && $captcha->success == true) {
+ //jika captcha valid 
+} else{
+//jika captcha tidak valid
+}
+```
 
 
 ## Release History
 
 * V 1.0 
-    * Upload fitur dasar, ambil data kota, provinsi, ongkos kirim.
+    * Upload fitur dasar.
 
 
 
