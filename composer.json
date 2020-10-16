@@ -1,0 +1,28 @@
+{
+    "name": "dickyp/captcha",
+    "description": "Captcha v3 untuk laravel",
+    "version":"v1.0",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "dicky perdian",
+            "email": "dickydraknes@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Dickyp\\Captcha\\": "src/" 
+        } 
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Dickyp\\Captcha\\CaptchaPackageServiceProvider"
+            ],
+            "aliases": {
+                "Captcha": "Dickyp\\Captcha\\CaptchaFacade"
+            }
+        }
+    }
+}
