@@ -31,10 +31,10 @@ php artisan vendor:publish
 
 dalam folder laravel-project/config/config/captcha.php
 
-pindahkan rajaongkir.php ke folder laravel-project/config/ 
+pindahkan captcha.php ke folder laravel-project/config/ 
 ```
 
-atau membuat manual file config dengan nama captcha.php
+atau membuat manual file config dengan nama captcha.php pada laravel-project/config
 
 ```sh
 return [
