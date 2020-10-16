@@ -15,22 +15,36 @@ composer require dickyp/rajaongkir
 
 #### Provider:
 ```sh
-Dickyp\Captcha\CaptchaPackageServiceProvider::class,
+Dickyp\RajaOngkir\ROngkirPackageServiceProvider::class,
 ```
 
 #### aliases:
 ```sh
-'Captcha' => Dickyp\Captcha\CaptchaFacade::class,
+'RajaOngkir' => Dickyp\RajaOngkir\RajaOngkirFacade::class
 ```
 #### API TOKEN & Tipe akun
 
+
+setelah itu lakukan.
 ```sh
+php artisan vendor:publish
+
 dalam folder laravel-project/config/config/rajaongkir.php
 
 pindahkan rajaongkir.php ke folder laravel-project/config/ 
+```
+
+atau membuat manual file config dengan nama rajaongkir.php
+
+```sh
+return [
+    'end_point' => env('RONGKIR_ENDPOINT', 'http://rajaongkir.com/api/starter'),
+    'token' => env('RONGKIR_KEY', 'token')
+];
+```
 
 dalam file .env tambahkan 
-
+```sh
 RONGKIR_ENDPOINT=http://rajaongkir.com/api/starter
 RONGKIR_KEY=API-TOKEN-ANDA
 ```
@@ -38,6 +52,13 @@ RONGKIR_KEY=API-TOKEN-ANDA
 
 
 ## Usage example
+
+untuk menggunakan tambahkan.
+
+```sh
+use RajaOngkir;
+```
+
 ### PROVINSI
 #### Untuk mengambil data provinsi tanpa Id
 ```sh
@@ -149,6 +170,7 @@ callback
 
 * V 1.0 
     * Upload fitur dasar, ambil data kota, provinsi, ongkos kirim.
+
 
 
 
